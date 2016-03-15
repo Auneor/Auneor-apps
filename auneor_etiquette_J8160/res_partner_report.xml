@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="base.res_partner_address_report"
+            model="res.partner"
+            name="res.partner"
+            string="Labels"
+            xml="report_etiquette/res_partner_report_address.xml"
+            xsl="report_etiquette/res_partner_report_address.xsl"
+            groups="base.group_no_one"/>
+    </data>
+</openerp>
