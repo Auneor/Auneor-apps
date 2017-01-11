@@ -21,7 +21,7 @@
 {
     'name' : 'siren siret TVA',
     'version' : '6.0.1',
-    'author' : 'Aunéor',
+    'author' : 'Auneor Conseil',
     'website': 'www.auneor-conseil.fr',
     'category' : 'Auneor/General',
     'license': 'AGPL-3',

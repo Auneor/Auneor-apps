@@ -22,7 +22,7 @@
 {
     'name': 'ETIQUETTE Format:J8160',
     'version': '1.0',
-    "author": "Auneor-Conseil",
+    "author": "Auneor Conseil",
     'category': 'Social Network',
     "website": "http://www.auneor-conseil.fr",
     'description': """

@@ -2,7 +2,7 @@
     'name': 'search city',
     'category': 'Client',
     'summary': 'Report',
-    "author": "Auneor-Conseil",
+    "author": "Auneor Conseil",
     "website": "http://www.auneor-conseil.fr",
     'version': '1.0',
     'description': """
