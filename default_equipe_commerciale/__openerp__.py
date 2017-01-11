@@ -1,5 +1,5 @@
 {
-    'name': 'search city',
+    'name': 'Equipe commerciale',
     'category': 'Client',
     'summary': 'Report',
     "author": "Auneor Conseil",
@@ -8,8 +8,8 @@
     'description': """
 
     """,
-    'depends': [],
-    'data': ['search.xml',],
+    'depends': ['sale'],
+    'data': [],
     'demo' : [],
 
     'installable': True,
