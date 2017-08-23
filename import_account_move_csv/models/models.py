@@ -39,7 +39,7 @@ class PieceComptable:
         return total==Decimal(0),res
 
 class Import_compt(models.Model):
-    _name = 'auneor_import_comptabilite.import_compt'
+    _name = 'import_account_move_csv.import_compt'
     nom = fields.Char("Nom du fichier")
     fichier=fields.Binary("Fichier CSV")
     message_erreur=fields.Char("Message d'erreur",readonly="True")
