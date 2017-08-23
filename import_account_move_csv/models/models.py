@@ -39,11 +39,11 @@ class PieceComptable:
         return total==Decimal(0),res
 
 class Import_compt(models.Model):
-    _name = 'auneor_import_comptabilite.import_compt'
-    nom = fields.Char("Nom du fichier")
-    fichier=fields.Binary("Fichier CSV")
-    message_erreur=fields.Char("Message d'erreur",readonly="True")
-    dateImport=fields.Datetime("Date import",readonly="True")
+    _name = 'import_account_move_csv.import_compt'
+    nom = fields.Char(string="Name")
+    fichier=fields.Binary(string="CSV File")
+    message_erreur=fields.Char(string="Error Message",readonly="True")
+    dateImport=fields.Datetime(string="Date of import",readonly="True")
 
     def calculeCodePiece(self,row):
         return row["JAL"]+row["PCE"]
@@ -53,23 +53,26 @@ class Import_compt(models.Model):
             company=self.env.user.company_id
             j=self.env['account.journal'].search([["company_id",'=',company.id],["code","=",o.JAL]])
             if not j:
-                self.message_erreur="Impossible de trouver le journal %s dans la societe %s"%(o.JAL,company.name)
+                self.message_erreur="Couldn't find journal %s in company %s"%(o.JAL,company.name)
+               # self.message_erreur="Impossible de trouver le journal %s dans la societe %s"%(o.JAL,company.name)
                 return False
             estBalancee,res=o.estBalancee()
             if not estBalancee:
-                self.message_erreur="Erreur, la piece comptable %s %s n'est pas balancee: %s" % (o.JAL,o.PCE,res)
+                self.message_erreur="Error, account move %s %s is unbalanced: %s" % (o.JAL,o.PCE,res)
+                #self.message_erreur="Erreur, la piece comptable %s %s n'est pas balancee: %s" % (o.JAL,o.PCE,res)
                 return False
             if not detecteErreur:
                 p=self.env['account.move']
                 piece=p.create({
-                    "ref" : "Import du %s"%(datetime.now()),
+                    "ref" : "Import from %s"%(datetime.now()),
                     "company_id" : company.id,
                     "journal_id" : j.id
                 })
             for ecriture in o.ecritures:
                 compte=self.env['account.account'].search([["company_id","=",company.id],["code","=",ecriture.COMPTE]])
                 if not compte:
-                    self.message_erreur="Impossible de trouver le compte %s dans la societe %s"%(ecriture.COMPTE,company.name)
+                    self.message_erreur="Couldn't find account.account %s in company %s"%(ecriture.COMPTE,company.name)
+                    #self.message_erreur="Impossible de trouver le compte %s dans la societe %s"%(ecriture.COMPTE,company.name)
                     return False
 
                 if not detecteErreur:
@@ -96,7 +99,8 @@ class Import_compt(models.Model):
             for row in reader:
                 piecesParCode.setdefault(self.calculeCodePiece(row),PieceComptable()).ajoute(row)
         except :
-            self.message_erreur=str(sys.exc_info()[0])+ " Erreur d'importation du fichier CSV. Etes vous sur que les colonnes sont bien DATE	JAL	COMPTE	PCE	LIBELLE	DEBIT	CREDIT"
+            self.message_erreur=str(sys.exc_info()[0])+ " Error while reading CSV file. Are the columns DATE	JAL	COMPTE	PCE	LIBELLE	DEBIT	CREDIT \n Is the file comma separated, and the delimiter the double quote? no blank field?"
+            #self.message_erreur=str(sys.exc_info()[0])+ " Erreur d'importation du fichier CSV. Etes vous sur que les colonnes sont bien DATE	JAL	COMPTE	PCE	LIBELLE	DEBIT	CREDIT"
             return
 
         listePieces=piecesParCode.values()
