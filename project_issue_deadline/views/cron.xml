@@ -1,0 +1,15 @@
+<odoo>
+
+
+        <record id="issue_deadline_cron" model="ir.cron">
+            <field name="name">Compute issue deadline</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'project.issue'"/>
+            <field name="function" eval="'recompute_all'"/>
+            <field name="args" eval="'()'"/>
+        </record>
+
+</odoo>
