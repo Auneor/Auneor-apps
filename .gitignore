@@ -1,3 +1,7 @@
 *pyc
 *pot
 *swp
+.dir-locals.el
+.idea/
+.projectile
+*~
