@@ -1,3 +1,11 @@
 *pyc
 *pot
 *swp
+*pyc
+*pot
+*~
+.idea
+*orig
+.dir-locals.el
+.projectile
+fabfile.py
